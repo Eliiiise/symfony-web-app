@@ -2,6 +2,8 @@
 
 {% block title %}Hello CustomerController!{% endblock %}
 
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/customer.css') }}">{% endblock %}
+
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -9,7 +11,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Hello {{ controller_name }}! ✅ {{ search }} {{ page }} {{ local }}</h1>
 
     
 
@@ -18,6 +20,22 @@
         <li>Your controller at <code><a href="{{ 'C:/Users/Administrateur/Documents/elise/website-skeleton/src/Controller/CustomerController.php'|file_link(0) }}">src/Controller/CustomerController.php</a></code></li>
         <li>Your template at <code><a href="{{ 'C:/Users/Administrateur/Documents/elise/website-skeleton/templates/customer/index.html.twig'|file_link(0) }}">templates/customer/index.html.twig</a></code></li>
     </ul>
+
+    {% set content %}
+    # Hello world
+    - point 1
+    - point 2
+    {% endset %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <article>
+        <time datetime="{{ 'now'|date('Y-m-d') }}"></time>
+    </article>
 
     
 </div>

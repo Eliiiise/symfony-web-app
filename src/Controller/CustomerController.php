@@ -15,25 +15,13 @@ class CustomerController extends AbstractController
     #[Route('/customer', name: 'customer')]
     public function index(Request $request): Response
     {
-        $customer = new Customer();
-        $form = $this->createFormBuilder($customer)
-            ->add('name', TextType::class)
-            ->add('age', TextType::class)
-            ->add('address', TextType::class)
-            ->add('save', SubmitType::class, ['label' => 'Valider'])
-            ->getForm();
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $customer = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($customer);
-            $em->flush();
-            echo 'Envoyé';
-        }
-
+        $this->addFlash('error', 'form.comment.content_not_blank');
+        // dump($request->query->all());
         return $this->render('customer/index.html.twig', [
             'controller_name' => 'CustomerController',
-            'form' => $form->createView(),
+            'search' => $request->query->get('search'),
+            'page' => $request->query->get('page'),
+            'local' => $request->getLocale(),
         ]);
     }
 }
